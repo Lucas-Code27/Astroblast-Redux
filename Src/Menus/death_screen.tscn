@@ -1,0 +1,125 @@
+[gd_scene load_steps=3 format=3 uid="uid://ovm4gmn7wt8"]
+
+[ext_resource type="Script" uid="uid://ctbldwqsko4fm" path="res://Src/Menus/death_screen.gd" id="1_ajvtp"]
+[ext_resource type="Theme" uid="uid://265f6o784l3r" path="res://Assets/UITheme.tres" id="1_gi5y7"]
+
+[node name="DeathScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ajvtp")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.392157)
+
+[node name="text" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -453.5
+offset_top = -324.0
+offset_right = 453.5
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_gi5y7")
+theme_override_font_sizes/normal_font_size = 64
+bbcode_enabled = true
+text = "[color=red][tornado radius=10 freq=10]YOU DIED[/tornado][/color]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = 154.0
+offset_right = 120.0
+offset_bottom = 244.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_gi5y7")
+theme_override_font_sizes/font_size = 64
+text = "Retry"
+flat = true
+
+[node name="score" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -453.5
+offset_top = -217.0
+offset_right = 453.5
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_gi5y7")
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "SCORE: [tornado radius=5 freq=4]number[/tornado]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="highscore" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -453.5
+offset_top = -108.0
+offset_right = 453.5
+offset_bottom = 184.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_gi5y7")
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "HIGH SCORE: [tornado radius=5 freq=4
+]number[/tornado]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="highscorenotifier" type="RichTextLabel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -9.0
+offset_top = -314.0
+offset_right = 898.0
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.444609
+theme = ExtResource("1_gi5y7")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[color=gold][tornado radius=5 freq=8]NEW HIGH SCORE![/tornado][/color]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

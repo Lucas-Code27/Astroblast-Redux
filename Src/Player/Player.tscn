@@ -1,0 +1,66 @@
+[gd_scene load_steps=9 format=3 uid="uid://dtqo6hc2f8n2q"]
+
+[ext_resource type="Script" uid="uid://b0ms20kop8816" path="res://Src/Player/player.gd" id="1_ujskw"]
+[ext_resource type="Script" uid="uid://cbrnbeec1rnr7" path="res://Src/Player/shooting_component.gd" id="2_f70li"]
+[ext_resource type="Texture2D" uid="uid://caclpt4o4xy7m" path="res://Assets/Art/Player.png" id="2_kpvkq"]
+[ext_resource type="PackedScene" uid="uid://dm4bhbgshhqhb" path="res://Src/Player/bullet.tscn" id="3_vr7rf"]
+[ext_resource type="PackedScene" uid="uid://dhm4hcoii61c2" path="res://Src/explosion.tscn" id="5_rtus5"]
+[ext_resource type="Script" uid="uid://drd4r5c1pcah3" path="res://Src/playerexplosion.gd" id="6_35oun"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ujskw"]
+size = Vector2(64, 41)
+
+[sub_resource type="Gradient" id="Gradient_kpvkq"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.166667, 1)
+colors = PackedColorArray(1, 0.921569, 0.847059, 1, 1, 0.498039, 0, 1, 0.0980392, 0.00392157, 0.101961, 1)
+
+[node name="Player" type="Area2D"]
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_ujskw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_repeat = 2
+texture = ExtResource("2_kpvkq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -3.5)
+shape = SubResource("RectangleShape2D_ujskw")
+
+[node name="ShootingComp" type="Node2D" parent="." node_paths=PackedStringArray("parent")]
+position = Vector2(32, 3)
+script = ExtResource("2_f70li")
+bullet = ExtResource("3_vr7rf")
+parent = NodePath("..")
+
+[node name="Cooldown" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.05
+one_shot = true
+
+[node name="reload" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(-31, 2)
+amount = 16
+lifetime = 0.5
+fixed_fps = 24
+emission_shape = 3
+emission_rect_extents = Vector2(1, 5)
+direction = Vector2(-1, 0)
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+scale_amount_min = 4.0
+scale_amount_max = 4.0
+color_ramp = SubResource("Gradient_kpvkq")
+
+[node name="Explosion" parent="." instance=ExtResource("5_rtus5")]
+process_mode = 3
+script = ExtResource("6_35oun")
+
+[connection signal="timeout" from="Cooldown" to="." method="_on_cooldown_timeout"]
+[connection signal="timeout" from="reload" to="." method="_on_reload_timeout"]

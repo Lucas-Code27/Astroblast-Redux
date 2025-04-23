@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://dari27af30p2t"]
+
+[ext_resource type="Script" uid="uid://dq17btp2xyaq3" path="res://Src/Hazards/mine.gd" id="1_bi5b7"]
+[ext_resource type="PackedScene" uid="uid://dhm4hcoii61c2" path="res://Src/explosion.tscn" id="2_edk7e"]
+[ext_resource type="Texture2D" uid="uid://c7ta84irb328m" path="res://Assets/Art/mine.png" id="2_lwcnf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5d2cg"]
+size = Vector2(38, 38)
+
+[node name="Mine" type="Area2D" groups=["mine"]]
+collision_layer = 2
+script = ExtResource("1_bi5b7")
+explosion = ExtResource("2_edk7e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_5d2cg")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-2.98023e-07, 2.98023e-07)
+scale = Vector2(1.9, 1.9)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_lwcnf")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://du4us8frqr6fl"]
+
+[ext_resource type="Script" uid="uid://bvkwubqg28xs2" path="res://Src/Hazards/enembullet.gd" id="1_yuqcj"]
+[ext_resource type="Texture2D" uid="uid://bmxrfq5gow5tk" path="res://Assets/Art/enembullet.png" id="2_6m27t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8hjfo"]
+size = Vector2(15, 15)
+
+[node name="Bullet" type="Area2D"]
+collision_layer = 0
+monitorable = false
+script = ExtResource("1_yuqcj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_repeat = 2
+texture = ExtResource("2_6m27t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_8hjfo")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0, 0.500001)
+scale = Vector2(0.75, 0.75)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

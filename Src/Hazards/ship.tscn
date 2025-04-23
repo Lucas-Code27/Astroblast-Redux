@@ -1,0 +1,62 @@
+[gd_scene load_steps=9 format=3 uid="uid://ckxir0b745uvq"]
+
+[ext_resource type="Script" uid="uid://di3orv1dsk0h4" path="res://Src/Hazards/ship.gd" id="1_yegqn"]
+[ext_resource type="Script" uid="uid://cbrnbeec1rnr7" path="res://Src/Player/shooting_component.gd" id="2_3spvv"]
+[ext_resource type="PackedScene" uid="uid://dmte7yly2d5hw" path="res://Src/Pickups/bullet_pickup.tscn" id="2_ba7k3"]
+[ext_resource type="Texture2D" uid="uid://ddclevxs53iad" path="res://Assets/Art/enemy.png" id="3_ict6v"]
+[ext_resource type="PackedScene" uid="uid://du4us8frqr6fl" path="res://Src/Hazards/enembullet.tscn" id="3_lxwdg"]
+[ext_resource type="PackedScene" uid="uid://dhm4hcoii61c2" path="res://Src/explosion.tscn" id="3_oj4bu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yegqn"]
+size = Vector2(64, 42)
+
+[sub_resource type="Gradient" id="Gradient_ict6v"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.166667, 1)
+colors = PackedColorArray(1, 0.921569, 0.847059, 1, 1, 0.498039, 0, 1, 0.0980392, 0.00392157, 0.101961, 1)
+
+[node name="Ship" type="Area2D" groups=["enemy"]]
+collision_layer = 2
+script = ExtResource("1_yegqn")
+pickup = ExtResource("2_ba7k3")
+explosion = ExtResource("3_oj4bu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_repeat = 2
+texture = ExtResource("3_ict6v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_yegqn")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(1.19209e-06, -4)
+scale = Vector2(3.2, 2.1)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.4
+one_shot = true
+autostart = true
+
+[node name="ShootingComp" type="Node2D" parent="." node_paths=PackedStringArray("parent")]
+position = Vector2(-32, 2)
+script = ExtResource("2_3spvv")
+bullet = ExtResource("3_lxwdg")
+parent = NodePath("..")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(32, 2)
+lifetime = 0.5
+fixed_fps = 24
+emission_shape = 3
+emission_rect_extents = Vector2(1, 5)
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+scale_amount_min = 4.0
+scale_amount_max = 4.0
+color_ramp = SubResource("Gradient_ict6v")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

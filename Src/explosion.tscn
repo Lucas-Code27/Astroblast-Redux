@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhm4hcoii61c2"]
+
+[ext_resource type="Script" uid="uid://d2tr8nobrurq2" path="res://Src/explosion.gd" id="1_57chf"]
+
+[sub_resource type="Gradient" id="Gradient_dd5mr"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.0666667)
+colors = PackedColorArray(1, 0.921569, 0.847059, 1, 1, 0.498039, 0, 1)
+
+[node name="Explosion" type="CPUParticles2D"]
+process_mode = 1
+z_index = 1
+emitting = false
+amount = 32
+lifetime = 0.25
+one_shot = true
+fixed_fps = 24
+local_coords = true
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 300.0
+scale_amount_min = 4.0
+scale_amount_max = 4.0
+color_ramp = SubResource("Gradient_dd5mr")
+script = ExtResource("1_57chf")

@@ -1,0 +1,46 @@
+[gd_scene load_steps=10 format=3 uid="uid://cwtvli7ka8mss"]
+
+[ext_resource type="AudioStream" uid="uid://d1iqq8ag568lu" path="res://Assets/Sounds/enemydeath.wav" id="1_8v54u"]
+[ext_resource type="Script" uid="uid://c3l3p011e25tq" path="res://Src/Globals/audio_manager.gd" id="1_mji5p"]
+[ext_resource type="AudioStream" uid="uid://bb5esrbldtah6" path="res://Assets/Sounds/pickup.wav" id="2_2ndrs"]
+[ext_resource type="AudioStream" uid="uid://45hskrdwvkkb" path="res://Assets/Sounds/playerdeath.wav" id="3_mji5p"]
+[ext_resource type="AudioStream" uid="uid://bnow8rf1edydh" path="res://Assets/Sounds/Shoot.wav" id="4_y84fc"]
+[ext_resource type="AudioStream" uid="uid://m6xk84mmrgvd" path="res://Assets/Sounds/jump.wav" id="5_2ndrs"]
+[ext_resource type="AudioStream" uid="uid://cg6g8t3chl75p" path="res://Assets/Sounds/dodged.wav" id="7_ilibn"]
+[ext_resource type="AudioStream" uid="uid://bepqoqput7bb0" path="res://Assets/Music/Goodnightmare.mp3" id="8_5xkbm"]
+[ext_resource type="AudioStream" uid="uid://dd0yyx1gm4yic" path="res://Assets/Music/Bit Bit Loop.mp3" id="9_ltra3"]
+
+[node name="AudioManager" type="Node" node_paths=PackedStringArray("music", "sound")]
+process_mode = 3
+script = ExtResource("1_mji5p")
+music = NodePath("Music")
+sound = NodePath("Sound")
+
+[node name="Sound" type="Node" parent="."]
+
+[node name="Enemydeath" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource("1_8v54u")
+
+[node name="Pickup" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource("2_2ndrs")
+
+[node name="Playerdeath" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource("3_mji5p")
+
+[node name="Shoot" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource("4_y84fc")
+max_polyphony = 4
+
+[node name="Jump" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource("5_2ndrs")
+
+[node name="Dodged" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource("7_ilibn")
+
+[node name="Music" type="Node" parent="."]
+
+[node name="song" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource("8_5xkbm")
+
+[node name="menu" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource("9_ltra3")
