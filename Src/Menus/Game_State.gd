@@ -4,14 +4,17 @@ extends Node2D
 @export var deathscreen:Control
 @export var hud:Control
 @export var starttext:CanvasLayer
+@export var pausemenu:Control
 
 @onready var spawncool:Timer = Timer.new()
 
+var dead:bool = false
 var newhigh:bool = false
 
 var floor_level:int
 
 func _ready() -> void:
+	dead = false
 	AudioManager.stop_music()
 	add_child(spawncool)
 	$Background/BackgroundColor.material.set("shader_parameter/speed",0.1)
@@ -20,12 +23,12 @@ func _ready() -> void:
 	player.start.connect(_on_start)
 	player.dead.connect(_on_death)
 	ScoreManager.new_high_score.connect(_new_high_score)
-	floor_level = 648
+	floor_level = 648 + 10
 	spawncool.one_shot = true
 	spawncool.process_mode = Node.PROCESS_MODE_PAUSABLE
 
 func _physics_process(_delta: float) -> void:
-	if player.global_position.y <= 0 and player.alive:
+	if player.global_position.y <= -20 and player.alive:
 		player.Die()
 	elif player.global_position.y >= floor_level and player.alive:
 		player.Die()
@@ -38,6 +41,8 @@ func _on_start() -> void:
 	starttext.hide()
 
 func _on_death() -> void:
+	pausemenu.game_over()
+	dead = true
 	AudioManager.change_song_pitch(0.8)
 	hud.hide()
 	deathscreen.scores(newhigh)
@@ -59,3 +64,11 @@ func _on_cooldown() -> void:
 
 func _on_player_shoot(amt:int) -> void:
 	hud.bullet_change(amt)
+
+func _on_pause_menu_pause(val: bool) -> void:
+	if val:
+		$Background/BackgroundColor.material.set("shader_parameter/speed",0.0)
+	elif !val and dead:
+		$Background/BackgroundColor.material.set("shader_parameter/speed",0.0)
+	else:
+		$Background/BackgroundColor.material.set("shader_parameter/speed",0.1)

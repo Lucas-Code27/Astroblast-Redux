@@ -16,13 +16,14 @@
 shader = ExtResource("3_julu5")
 shader_parameter/speed = 0.1
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("player", "deathscreen", "hud", "starttext")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("player", "deathscreen", "hud", "starttext", "pausemenu")]
 process_mode = 3
 script = ExtResource("1_8hr3p")
 player = NodePath("Player")
 deathscreen = NodePath("UI/DeathScreen")
 hud = NodePath("UI/HUD")
 starttext = NodePath("Starttext")
+pausemenu = NodePath("UI/PauseMenu")
 
 [node name="Starttext" type="CanvasLayer" parent="."]
 
@@ -73,11 +74,16 @@ stretch_mode = 1
 process_mode = 1
 position = Vector2(200, 314)
 
-[node name="Spawner" type="Node2D" parent="."]
+[node name="Spawner" type="Node2D" parent="." node_paths=PackedStringArray("preloader")]
 process_mode = 1
 position = Vector2(1256, 324)
 script = ExtResource("5_5miec")
-spawnables = Array[PackedScene]([ExtResource("6_irdpt"), ExtResource("9_c0yi5")])
+preloader = NodePath("../ResourcePreloader")
+spawnables = Array[String](["mine", "ship"])
+
+[node name="ResourcePreloader" type="ResourcePreloader" parent="."]
+resources = [PackedStringArray("mine", "ship"), [ExtResource("6_irdpt"), ExtResource("9_c0yi5")]]
 
 [connection signal="retry" from="UI/DeathScreen" to="." method="_on_death_screen_retry"]
+[connection signal="pause" from="UI/PauseMenu" to="." method="_on_pause_menu_pause"]
 [connection signal="shoot" from="Player" to="." method="_on_player_shoot"]

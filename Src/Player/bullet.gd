@@ -17,7 +17,7 @@ func _on_area_entered(area: Area2D) -> void:
 	elif area.is_in_group("enemy"):
 		area.spawn_explosion()
 		AudioManager.play_sound("Enemydeath",randf_range(0.9,1.1))
-		ScoreManager.add_score(20)
+		ScoreManager.add_score(40)
 		area.Pickup()
 		area.queue_free()
 		queue_free()

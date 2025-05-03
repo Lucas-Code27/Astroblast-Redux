@@ -13,7 +13,7 @@ func _on_area_entered(area: Area2D) -> void:
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	AudioManager.play_sound("Dodged",randf_range(0.7,1))
-	ScoreManager.add_score(10)
+	ScoreManager.add_score(5)
 	queue_free()
 
 func spawn_explosion() -> void:
