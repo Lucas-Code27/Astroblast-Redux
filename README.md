@@ -14,7 +14,7 @@ MIT License Copyright (c) 2025 Lucas-Code
 You are free to use, modify, and redistribute the art and sound effects.
 
 **Music:**
-The music peovided in the game was peoduced my Kevin Macleod with a license where you must credit him in your game if you use his music
+The music provided in the game was produced my Kevin Macleod with a license where you must credit him in your game if you use his music
 
 ### How To Install:
 You can clone the game and then open the project in godot
