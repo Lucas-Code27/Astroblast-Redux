@@ -1,7 +1,7 @@
 # Astroblast: REDUX
 
 This is a small sidescrolling flappybird-like shooter game made for a game jam built in godot. This has been open-sourced as
-the game is finished the source code is released so people can: make their own versions of the game, Borrow code from the game, or just learn from how the game was made
+the game is finished. The source code is released so people can: make their own versions of the game, Borrow code from the game, or just learn from how the game was made
 
 ## License
 
